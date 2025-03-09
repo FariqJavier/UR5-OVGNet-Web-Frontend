@@ -107,11 +107,29 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen gap-4">
-      <button className="px-4 py-2 bg-blue-500 text-white rounded" onClick={() => router.push("/text-command")}>
+    <div className="flex flex-col items-center justify-center h-screen gap-20 bg-gradient-to-r from-[#6BFFF8] to-[#409995]">
+      <button 
+        className="w-100 h-30 border-6 border-black text-gray-600 hover:text-gray-500 text-4xl font-extrabold tracking-wide rounded-4xl shadow-md hover:shadow-lg transition duration-300" 
+        style={{ 
+          backgroundColor: "rgba(255, 255, 255, 0.3)",
+          borderColor: "rgba(0, 0, 0, 0.3)" 
+        }}
+        onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255, 255, 255, 0.5)"}
+        onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255, 255, 255, 0.3)"}
+        onClick={() => router.push("/text-command")}
+        >
         Text Command
       </button>
-      <button className="px-4 py-2 bg-green-500 text-white rounded" onClick={() => router.push("/voice-command")}>
+      <button 
+        className="w-100 h-30 border-6 border-black text-gray-600 hover:text-gray-500 text-4xl font-extrabold tracking-wide rounded-4xl shadow-md hover:shadow-lg transition duration-300" 
+        style={{ 
+          backgroundColor: "rgba(255, 255, 255, 0.3)",
+          borderColor: "rgba(0, 0, 0, 0.3)" 
+        }}
+        onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255, 255, 255, 0.5)"}
+        onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255, 255, 255, 0.3)"}
+        onClick={() => router.push("/voice-command")}
+        >
         Voice Command
       </button>
     </div>
