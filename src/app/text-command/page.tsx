@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { X, Send } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function TextCommand() {
@@ -23,11 +24,33 @@ export default function TextCommand() {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 p-4">
-      <textarea className="border p-2 w-80" value={command} onChange={(e) => setCommand(e.target.value)} />
-      <button className="px-4 py-2 bg-blue-500 text-white rounded" onClick={handleSubmit}>
-        Send
-      </button>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#6BFFF8] to-[#409995]">
+      <div className="relative w-[500px] bg-[#C6E7E6] p-6 rounded-lg border-2 border-black shadow-md">
+        {/* Close Button */}
+        <button className="absolute top-4 right-4 text-gray-800 hover:text-black">
+          <X size={20} />
+        </button>
+
+        {/* Header */}
+        <h2 className="text-xl font-semibold text-gray-900">Text Command</h2>
+        <hr className="border-gray-700 my-2" />
+
+        {/* Text Area */}
+        <textarea
+          className="w-full h-40 p-3 border rounded-md bg-gray-100 text-gray-800"
+          placeholder="Insert your command here . . ."
+          value={command}
+          onChange={(e) => setCommand(e.target.value)}
+        ></textarea>
+
+        {/* Send Button */}
+        <div className="flex justify-end mt-4">
+          <button className="flex items-center gap-2 bg-[#4A9797] text-white px-4 py-2 rounded-full shadow hover:bg-[#3b8080] transition">
+            <Send size={18} />
+            Send
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
