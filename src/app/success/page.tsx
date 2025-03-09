@@ -1,13 +1,26 @@
 "use client";
 import { useRouter } from "next/navigation";
 
-export default function Success() {
+export default function SuccessPage() {
   const router = useRouter();
 
   return (
-    <div className="flex flex-col items-center gap-4 p-4">
-      <h1 className="text-green-600">Command Sent Successfully!</h1>
-      <button className="px-4 py-2 bg-gray-500 text-white rounded" onClick={() => router.push("/")}>Close</button>
+    <div className="flex items-center justify-center h-screen bg-gradient-to-br from-[#6BFFF8] to-[#409995]">
+      <div className="bg-[#B3E5FC] p-6 rounded-2xl shadow-md border border-black flex items-center relative w-[400px]">
+        {/* Success Message */}
+        <p className="text-lg font-bold text-gray-800 drop-shadow-md mx-auto">
+          Command Sent Successfully !
+        </p>
+        
+        {/* Close Button */}
+        <button
+          className="absolute top-2 right-3 text-xl text-gray-800"
+          onClick={() => router.push("/")}
+        >
+          ✖
+        </button>
+      </div>
     </div>
   );
 }
+
