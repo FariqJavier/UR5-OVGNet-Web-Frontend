@@ -1,7 +1,7 @@
 "use client";
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { Mic, X, Loader } from "lucide-react";
+import { Mic, X, Loader, Send } from "lucide-react";
 import { Dialog } from "@headlessui/react";
 
 export default function VoiceCommand() {
@@ -96,13 +96,18 @@ export default function VoiceCommand() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#6BFFF8] to-[#409995]">
-      <div className="relative w-[500px] bg-[#C6E7E6] p-6 rounded-lg border-2 border-black shadow-md">
-        <button className="absolute top-4 right-4 text-gray-800 hover:text-black">
+      <div 
+        className="relative w-[500px] bg-[#C6E7E6] p-6 rounded-2xl border-4 border-black shadow-md"
+        style={{ 
+            borderColor: "rgba(0, 0, 0, 0.5)" 
+        }}
+        >
+        <button className="absolute top-4 right-4 text-gray-600 hover:text-black cursor-pointer shadow-md hover:shadow-lg transition">
           <X size={20} />
         </button>
 
-        <h2 className="text-xl font-semibold text-gray-900">Voice Command</h2>
-        <hr className="border-gray-700 my-2" />
+        <h2 className="text-xl font-semibold text-gray-700">Voice Command</h2>
+        <hr className="border-gray-500 my-2" />
 
         <div className="flex justify-center my-8">
           <button
@@ -131,12 +136,23 @@ export default function VoiceCommand() {
         </div>
 
         <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)} className="fixed inset-0 flex items-center justify-center p-4">
-        <Dialog.Panel className="bg-white rounded-lg p-6 shadow-lg">
-          <Dialog.Title className="text-lg font-bold">Send Recorded Audio</Dialog.Title>
+        <Dialog.Panel className="bg-gray-200 rounded-xl p-6 shadow-lg">
+          <Dialog.Title className="text-lg font-bold text-gray-500 my-4">Send Recorded Audio</Dialog.Title>
           <audio controls src={audioBlob ? URL.createObjectURL(audioBlob) : ""} className="w-full mt-2" />
           <div className="flex justify-end mt-4">
-            <button onClick={() => setIsModalOpen(false)} className="px-4 py-2 bg-gray-300 rounded mr-2">Cancel</button>
-            <button onClick={uploadAudio} className="px-4 py-2 bg-blue-500 text-white rounded">Send</button>
+            <button 
+                className="px-4 py-2 bg-gray-400 hover:bg-gray-500 rounded-full mr-2 transition cursor-pointer"
+                onClick={() => setIsModalOpen(false)} 
+                >
+                Cancel
+            </button>
+            <button 
+                className="flex items-center gap-2 bg-[#4A9797] text-white px-4 py-2 rounded-full shadow hover:bg-[#3b8080] transition cursor-pointer"
+                onClick={uploadAudio}
+                >
+                <Send size={18} />
+                Send
+            </button>
           </div>
         </Dialog.Panel>
       </Dialog>

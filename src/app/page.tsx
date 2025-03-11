@@ -107,27 +107,21 @@ export default function Home() {
   const router = useRouter();
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen gap-20 bg-gradient-to-r from-[#6BFFF8] to-[#409995]">
+    <div className="flex flex-col items-center justify-center h-screen gap-10 bg-gradient-to-r from-[#6BFFF8] to-[#409995]">
       <button 
-        className="w-100 h-30 border-6 border-black text-gray-600 hover:text-gray-500 text-4xl font-extrabold tracking-wide rounded-4xl shadow-md hover:shadow-lg transition duration-300" 
+        className="w-48 py-3 bg-[#C6E7E6] hover:bg-[#c6e7e6b8] border-4 border-black text-gray-600 hover:text-gray-500 text-lg font-extrabold tracking-wide rounded-full shadow-md hover:shadow-lg transition duration-300 cursor-pointer" 
         style={{ 
-          backgroundColor: "rgba(255, 255, 255, 0.3)",
-          borderColor: "rgba(0, 0, 0, 0.3)" 
+          borderColor: "rgba(0, 0, 0, 0.5)" 
         }}
-        onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255, 255, 255, 0.5)"}
-        onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255, 255, 255, 0.3)"}
         onClick={() => router.push("/text-command")}
         >
         Text Command
       </button>
       <button 
-        className="w-100 h-30 border-6 border-black text-gray-600 hover:text-gray-500 text-4xl font-extrabold tracking-wide rounded-4xl shadow-md hover:shadow-lg transition duration-300" 
+        className="w-48 py-3 bg-[#C6E7E6] hover:bg-[#c6e7e6b8] border-4 border-black text-gray-600 hover:text-gray-500 text-lg font-extrabold tracking-wide rounded-full shadow-md hover:shadow-lg transition duration-300 cursor-pointer" 
         style={{ 
-          backgroundColor: "rgba(255, 255, 255, 0.3)",
-          borderColor: "rgba(0, 0, 0, 0.3)" 
+          borderColor: "rgba(0, 0, 0, 0.5)" 
         }}
-        onMouseEnter={(e) => (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255, 255, 255, 0.5)"}
-        onMouseLeave={(e) => (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255, 255, 255, 0.3)"}
         onClick={() => router.push("/voice-command")}
         >
         Voice Command
