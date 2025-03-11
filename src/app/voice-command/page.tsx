@@ -61,14 +61,22 @@ export default function VoiceCommand() {
     }
   };
 
+  const handleRecording = () => {
+    setIsRecording((prev) => {
+      if (!prev) startRecording();
+      else stopRecording();
+      return !prev;  // Toggle isRecording state
+    });
+  };
+
   const uploadAudio = async () => {
     if (!audioBlob) return;
 
     const formData = new FormData();
-    formData.append("file", audioBlob, "audio.wav");
+    formData.append("wav_file", audioBlob, "audio.wav");
 
     try {
-      const response = await fetch("/api/ros-voice-command", {
+      const response = await fetch("/api/proxy/ros_voice_command", {
         method: "POST",
         body: formData,
       });
@@ -111,13 +119,14 @@ export default function VoiceCommand() {
 
         <div className="flex justify-center my-8">
           <button
-            className={`w-28 h-28 flex items-center justify-center rounded-full border-4 ${
+            className={`w-28 h-28 flex items-center justify-center rounded-full border-4 cursor-pointer shadow-md hover:shadow-lg hover:bg-gray-300 transition ${
               isRecording
                 ? "border-red-500 bg-red-200 animate-pulse"
                 : "border-gray-500 bg-gray-200"
             }`}
-            onMouseDown={startRecording}
-            onMouseUp={stopRecording}
+            // onMouseDown={startRecording}
+            // onMouseUp={stopRecording}
+            onClick={handleRecording}
           >
             {isModalOpen ? <Loader size={60} className="animate-spin" /> : <Mic size={60} className="text-gray-700" />}
           </button>
@@ -131,7 +140,7 @@ export default function VoiceCommand() {
           ) : transcript ? (
             <p className="font-medium">{transcript.replace(/"/g, "'")}</p>
           ) : (
-            <p>Press & hold the mic to record...</p>
+            <p>Press the mic to record...</p>
           )}
         </div>
 
