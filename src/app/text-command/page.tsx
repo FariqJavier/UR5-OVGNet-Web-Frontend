@@ -4,15 +4,15 @@ import { X, Send } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function TextCommand() {
-  const [command, setCommand] = useState("");
+  const [textCommand, setCommand] = useState("");
   const router = useRouter();
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch("/api/command", {
+      const response = await fetch("/api/proxy/ros_text_command", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ command }),
+        body: JSON.stringify({ command: textCommand.trim() }),
       });
       const result = await response.json();
 
@@ -47,13 +47,16 @@ export default function TextCommand() {
                 borderColor: "rgba(0, 0, 0, 0.5)" 
             }}
           placeholder="Insert your command here . . ."
-          value={command}
+          value={textCommand}
           onChange={(e) => setCommand(e.target.value)}
         ></textarea>
 
         {/* Send Button */}
         <div className="flex justify-end mt-4">
-          <button className="flex items-center gap-2 bg-[#4A9797] text-white px-4 py-2 rounded-full shadow hover:bg-[#3b8080] transition cursor-pointer">
+          <button 
+            className="flex items-center gap-2 bg-[#4A9797] text-white px-4 py-2 rounded-full shadow hover:bg-[#3b8080] transition cursor-pointer"
+            onClick={handleSubmit}
+            >
             <Send size={18} />
             Send
           </button>
