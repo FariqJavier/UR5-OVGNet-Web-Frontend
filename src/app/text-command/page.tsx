@@ -9,7 +9,7 @@ export default function TextCommand() {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch("/api/proxy/ros_text_command", {
+      const response = await fetch("/api/proxy/ros_text_command/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ command: textCommand.trim() }),

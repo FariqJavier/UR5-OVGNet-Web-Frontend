@@ -14,42 +14,50 @@ export default function VoiceCommand() {
   const audioChunksRef = useRef<Blob[]>([]);
   const router = useRouter();
 
-//   useEffect(() => {
-//     if (isRecording) {
-//       // Simulated voice recording logic
-//       setTimeout(() => {
-//         const success = Math.random() > 0.2; // Simulate API response
-//         if (success) router.push("/success");
-//         else router.push(`/failed?error=400&message=Voice command failed`);
-//       }, 3000);
-//     }
-//   }, [isRecording, router]);
-
   const startRecording = async () => {
     setTranscript("");
     setIsRecording(true);
-
+  
+    if (typeof navigator === "undefined" || !navigator.mediaDevices?.getUserMedia) {
+      console.error("Browser does not support audio recording.");
+      setError({ code: 500, message: "Browser does not support audio recording." });
+      setIsRecording(false);
+      return;
+    }
+  
     try {
+      // Check if a microphone is available
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      const hasMic = devices.some(device => device.kind === "audioinput");
+  
+      if (!hasMic) {
+        console.error("No microphone detected.");
+        setError({ code: 404, message: "No microphone detected." });
+        setIsRecording(false);
+        return;
+      }
+  
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const mediaRecorder = new MediaRecorder(stream);
       mediaRecorderRef.current = mediaRecorder;
-
+  
       mediaRecorder.ondataavailable = (event) => {
         if (event.data.size > 0) {
           audioChunksRef.current.push(event.data);
         }
       };
-
+  
       mediaRecorder.onstop = async () => {
         const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
         setAudioBlob(audioBlob);
         setIsModalOpen(true);
         audioChunksRef.current = [];
       };
-
+  
       mediaRecorder.start();
     } catch (error) {
       console.error("Error accessing microphone:", error);
+      setError({ code: 403, message: "Microphone access denied or unavailable." });
       setIsRecording(false);
     }
   };
@@ -76,7 +84,7 @@ export default function VoiceCommand() {
     formData.append("wav_file", audioBlob, "audio.wav");
 
     try {
-      const response = await fetch("/api/proxy/ros_voice_command", {
+      const response = await fetch("/api/proxy/ros_voice_command/", {
         method: "POST",
         body: formData,
       });

@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic"; // Ensure it's a dynamic route
+
 export async function POST(req: NextRequest) {
   const urlSegments = req.nextUrl.pathname.split("/").slice(3); // Extract path after `/api/proxy/`
   const backendPath = urlSegments.join("/");
-  const backendUrl = `http://localhost:8000/api/${backendPath}`;
+  const backendUrl = `http://localhost:8000/api/${backendPath}/`;
 
   try {
     let body = null;
@@ -36,7 +38,7 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
   const urlSegments = req.nextUrl.pathname.split("/").slice(3); // Extract path after `/api/proxy/`
   const backendPath = urlSegments.join("/");
-  const backendUrl = `http://localhost:8000/api/${backendPath}`;
+  const backendUrl = `http://localhost:8000/api/${backendPath}/`;
 
   try {
     const response = await fetch(backendUrl);
